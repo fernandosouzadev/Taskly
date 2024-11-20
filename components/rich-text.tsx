@@ -1,4 +1,7 @@
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import {
+  InitialConfigType,
+  LexicalComposer,
+} from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -15,6 +18,7 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { TRANSFORMERS } from '@lexical/markdown';
 import exampleTheme from './plugins/toolbar/theme';
 import { ToolbarPlugin } from './plugins/toolbar/toolbar';
+import { ErrorProps } from 'next/error';
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -22,7 +26,7 @@ function Placeholder() {
 
 const editorConfig = {
   theme: exampleTheme,
-  onError(error: any) {
+  onError(error: ErrorProps) {
     throw error;
   },
   nodes: [
@@ -42,7 +46,9 @@ const editorConfig = {
 
 export function Editor() {
   return (
-    <LexicalComposer initialConfig={editorConfig as any}>
+    <LexicalComposer
+      initialConfig={editorConfig as unknown as InitialConfigType}
+    >
       <div className="editor-container border-2">
         <ToolbarPlugin />
         <div className="editor-inner">

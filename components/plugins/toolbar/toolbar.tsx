@@ -1,4 +1,5 @@
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-nocheck
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
@@ -724,3 +725,5 @@ export function ToolbarPlugin() {
     </div>
   );
 }
+
+/* eslint-enable @typescript-eslint/ban-ts-comment */

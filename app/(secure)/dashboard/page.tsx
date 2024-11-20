@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -44,7 +43,6 @@ const weeklyData = [
 ];
 
 export default function ParentDashboard() {
-  const [progress, setProgress] = useState(65);
   const router = useRouter();
 
   return (
@@ -118,7 +116,7 @@ export default function ParentDashboard() {
               <Trophy className="h-4 w-4 text-purple-500" />
             </CardHeader>
             <CardContent>
-              <Progress value={progress} className="w-full" />
+              <Progress value={65} className="w-full" />
               <p className="text-xs text-gray-500 mt-2">65% completo</p>
             </CardContent>
           </Card>

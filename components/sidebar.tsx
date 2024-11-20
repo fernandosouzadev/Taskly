@@ -8,8 +8,6 @@ import {
   Users,
   Settings,
   ChevronDown,
-  Menu,
-  Briefcase,
   Calendar,
 } from 'lucide-react';
 
@@ -26,7 +24,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarProvider,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { useRouter } from 'next/navigation';
 
@@ -39,16 +36,13 @@ const IconWrapper = ({
 }) => <div className={`rounded-full p-2 ${color}`}>{children}</div>;
 
 export default function TasklySidebar() {
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
   const router = useRouter();
 
   return (
     <SidebarProvider className="w-1/5">
       <Sidebar className="w-1/5 border-r bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <SidebarHeader className="h-20 flex items-center justify-between px-6">
-          <div
-            className={cn('flex items-center gap-3', isCollapsed && 'hidden')}
-          >
+          <div className={cn('flex items-center gap-3', false && 'hidden')}>
             <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-2">
               <Calendar className="h-6 w-6 text-white" />
             </div>
@@ -58,7 +52,7 @@ export default function TasklySidebar() {
           </div>
         </SidebarHeader>
         <SidebarContent className="flex flex-col gap-6 py-6">
-          <div className={cn('px-6', isCollapsed && 'hidden')}>
+          <div className={cn('px-6', false && 'hidden')}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
@@ -145,14 +139,14 @@ export default function TasklySidebar() {
             variant="ghost"
             className={cn(
               'w-full justify-start gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors',
-              isCollapsed && 'justify-center'
+              false && 'justify-center'
             )}
           >
             <Avatar className="h-10 w-10 border-2 border-purple-500">
               <AvatarImage src="https://github.com/shadcn.png" alt="User" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            {!isCollapsed && (
+            {!false && (
               <>
                 <div className="flex flex-col items-start text-left">
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-200">

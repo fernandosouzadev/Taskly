@@ -23,15 +23,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Search,
-  Plus,
-  Bell,
-  Clock,
-  DollarSign,
-  Send,
-  Edit,
-} from 'lucide-react';
+import { Search, Plus, Clock, DollarSign, Send, Edit } from 'lucide-react';
 import { Editor } from '@/components/rich-text';
 
 interface Task {
