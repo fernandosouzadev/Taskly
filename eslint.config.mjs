@@ -26,6 +26,7 @@ export default [
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react/jsx-runtime': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   pluginJs.configs.recommended,

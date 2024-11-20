@@ -87,7 +87,10 @@ function Divider() {
   return <div className="divider" />;
 }
 
-function positionEditorElement(editor: any, rect: DOMRect) {
+function positionEditorElement(
+  editor: MutableRefObject.current,
+  rect: DOMRect
+) {
   if (rect === null) {
     editor.style.opacity = '0';
     editor.style.top = '-1000px';
@@ -251,7 +254,7 @@ function Select({ onChange, className, options, value }) {
         (
           option:
             | boolean
-            | ReactElement<any, string | JSXElementConstructor<any>>
+            | ReactElement<string | JSXElementConstructor>
             | Iterable<ReactNode>
             | Promise<AwaitedReactNode>
             | Key
@@ -307,7 +310,7 @@ function BlockOptionsDropdownList({
     const toolbar = toolbarRef.current;
 
     if (dropDown !== null && toolbar !== null) {
-      const handle = (event: { target: any }) => {
+      const handle = (event: { target: MouseEvent }) => {
         const target = event.target;
 
         if (!dropDown.contains(target) && !toolbar.contains(target)) {
