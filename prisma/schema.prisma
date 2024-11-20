@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String   @unique
+  password       String
+  role           Role
+  parentId       String?  @db.ObjectId
+  familyGroupId  String?  @db.ObjectId
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  approvals      Approval[]
+  tasksCreated   Task[]   @relation("CreatedTasks")
+  tasksAssigned  Task[]   @relation("AssignedTasks")
+  familyGroup    FamilyGroup? @relation(fields: [familyGroupId], references: [id])
+
+}
+
+model Task {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  category      String
+  reward        Float
+  requiresApproval Boolean @default(false)
+  dueDate       DateTime?
+  status        TaskStatus @default(PENDING)
+  creatorId     String    @db.ObjectId
+  creator       User      @relation("CreatedTasks", fields: [creatorId], references: [id])
+  assignedToId  String    @db.ObjectId
+  assignedTo    User      @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  familyGroupId String    @db.ObjectId
+  approvals     Approval[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model FamilyGroup {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  ownerId   String  @db.ObjectId
+  members   User[]
+  createdAt DateTime @default(now())
+}
+
+model Approval {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  taskId      String   @db.ObjectId
+  task        Task     @relation(fields: [taskId], references: [id])
+  approvedById String  @db.ObjectId
+  approvedBy  User     @relation(fields: [approvedById], references: [id])
+  status      ApprovalStatus
+  createdAt   DateTime @default(now())
+}
+
+enum Role {
+  PARENT
+  CHILD
+  RESPONSIBLE
+}
+
+enum TaskStatus {
+  PENDING
+  COMPLETED
+  REJECTED
+  EXPIRED
+}
+
+enum ApprovalStatus {
+  APPROVED
+  REJECTED
+}
+
